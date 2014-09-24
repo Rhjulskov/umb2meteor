@@ -1,7 +1,9 @@
-Template.dbview.helpers({
-  /* Dummy collection subscription
-  comments: function() {
-    return Comments.find({postId: this._id});
-  }
-  */
-});
+if (Meteor.isClient){ 
+	Template.dbview.helpers({
+	  /* Dummy collection subscription
+	  comments: function() {
+	    return Comments.find({postId: this._id});
+	  }
+	  */
+	});
+}

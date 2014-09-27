@@ -11,11 +11,12 @@
   	{{#if templateIs "newslist" }}
   		{{>newslist}}
   	{{/if}}
-
-    {{#if templateIs "contact" }}
+  	{{#if templateIs "newsitem" }}
+  		{{>newsitem}}
+  	{{/if}}
+  	{{#if templateIs "contact" }}
   		{{>contact}}
   	{{/if}}
-    
   {{ /each }}
 
 </template>

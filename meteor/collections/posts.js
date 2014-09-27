@@ -1,4 +1,6 @@
 Content = new Meteor.Collection('content');
+
+
 /*
 Meteor.methods({
   post: function(postAttributes) {

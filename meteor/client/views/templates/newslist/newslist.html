@@ -1,4 +1,11 @@
 
 <template name="newslist">
-	<h1>{{head}}</h1>
+	<div>
+		<h1>{{head}}</h1>
+		<div>
+			{{#each children}}
+				<p>{{head}}</p>
+			{{/each}}
+		</div>
+	</div>
 </template>

@@ -13,7 +13,7 @@ if (Content.find().count() === 0) {
   );
 
   Content.insert(
-    getUmbracoNodeObject(1002, "The project", "the-project", new Date(), new Date(), "/the-project", "1000,1002", 1000, 2, "Subpage", 2, "subpage", { head: "About umb2Meteor", bodyText: "<p>Lorem ipsum</p>"}) 
+    getUmbracoNodeObject(1002, "The project", "the-project", new Date(), new Date(), "/the-project", "1000,1002", 1000, 2, "Subpage", 2, "subpage", { head: "About the umb2Meteor project", bodyText: "<p>Lorem ipsum</p>"}) 
   );
 
   Content.insert(
@@ -33,7 +33,7 @@ if (Content.find().count() === 0) {
   );
 
   Content.insert(
-    getUmbracoNodeObject(1007, "Contact", "contact", new Date(), new Date(), "/contact", "1000,1007", 1000, 2, "Contact", 4, "contact", { head: "Project News", bodyText: "<p>Lorem ipsum</p>", contactEmail: "peter@designmonkey.dk" }) 
+    getUmbracoNodeObject(1007, "Contact", "contact", new Date(), new Date(), "/contact", "1000,1007", 1000, 2, "Contact", 4, "contact", { head: "Contact us", bodyText: "<p>Lorem ipsum</p>", contactEmail: "peter@designmonkey.dk" }) 
   );
 
 

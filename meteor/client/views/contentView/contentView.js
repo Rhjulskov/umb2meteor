@@ -9,3 +9,4 @@ Template.contentView.templateIs = function(template) {
 	return this.Template === template;
 }
 
+

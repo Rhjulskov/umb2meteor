@@ -1,0 +1,23 @@
+<template name="contentView">
+  <!-- Should loop through all content in the mongoDB -->
+  {{ #each content }}
+    {{ Template}}
+
+  	{{#if templateIs "frontpage" }}
+  		{{>frontpage}}
+  	{{/if}}
+  	{{#if templateIs "subpage" }}
+  		{{>subpage}}
+  	{{/if}}
+  	{{#if templateIs "newslist" }}
+  		{{>newslist}}
+  	{{/if}}
+  	{{#if templateIs "newsitem" }}
+  		{{>newsitem}}
+  	{{/if}}
+  	{{#if templateIs "contact" }}
+  		{{>contact}}
+  	{{/if}}
+  {{ /each }}
+
+</template>

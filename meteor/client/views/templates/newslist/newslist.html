@@ -4,9 +4,15 @@
 		<h1>{{childrenCount}} - {{head}}</h1>
 		<div>
       <!--{{children id = this.UmbId}}-->
-			{{#each children}}
-				<p>{{head}}</p>
-			{{/each}}
+      <ul>
+  			{{#each children}}
+  				<li>
+            <a href="#">
+              {{head}}
+            </a>
+          </li>
+  			{{/each}}
+      </ul>
 		</div>
 	</div>
 </template>

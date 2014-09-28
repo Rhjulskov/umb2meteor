@@ -6,6 +6,12 @@ Router.configure({
 
 Router.map(function() {
   this.route('contentView', {
-    path: '/'
+    path: '/',
+    template: 'contentView'
+  });
+  this.route('newsitem', {
+    path: '/news/:_id',
+    template: 'newsitem',
+    data: function() { return Content.findOne(this.params._id);   }
   });
 });

@@ -3,11 +3,11 @@
 	<div data-nodetypealias="{{NodeTypeAlias}}">
 		<h1>{{childrenCount}} - {{head}}</h1>
 		<div>
-      <!--{{children id = this.UmbId}}-->
+      <i>Added simple router link:</i>
       <ul>
   			{{#each children}}
   				<li>
-            <a href="#">
+            <a href="{{pathFor 'newsitem'}}">
               {{head}}
             </a>
           </li>

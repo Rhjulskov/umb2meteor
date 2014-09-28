@@ -1,8 +1,9 @@
 
 <template name="newslist">
 	<div data-nodetypealias="{{NodeTypeAlias}}">
-		<h1>{{newsCount}} - {{head}}</h1>
+		<h1>{{childrenCount}} - {{head}}</h1>
 		<div>
+      <!--{{children id = this.UmbId}}-->
 			{{#each children}}
 				<p>{{head}}</p>
 			{{/each}}

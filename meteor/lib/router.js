@@ -14,4 +14,11 @@ Router.map(function() {
     template: 'newsitem',
     data: function() { return Content.findOne(this.params._id);   }
   });
+  this.route('umb2MeteorApi', {
+    path: '/umb2MeteorApi/:_id',
+    template: 'empty',
+    data: function() { return Content.insert({ UmbId: this.params._id, test: "TEST" });   }
+  });
+
 });
+

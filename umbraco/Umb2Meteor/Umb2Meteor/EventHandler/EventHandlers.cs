@@ -10,6 +10,7 @@ using System.Web;
 using System.Net;
 using System.Text;
 using System.Configuration;
+using Umb2Meteor.Models;
 
 namespace Umb2Meteor.EventHandler {
     public class EventHandlers : ApplicationEventHandler {
@@ -29,17 +30,24 @@ namespace Umb2Meteor.EventHandler {
             foreach (var node in args.PublishedEntities)
             {
                 appendLine(node.Id + " : " + node.Name);
-                SendNode(node);
+                ContentModel content = new ContentModel();
+                content.Id = node.Id;
+                content.Name = node.Name;
+
+                SendNode(content);
 
             }
         }
 
-        private void SendNode(IContent node) {
+        private void SendNode(ContentModel content) {
             // Create a request using a URL that can receive a post. 
 
+            
             JsonRequest.Request request = new JsonRequest.Request();
 
-            string response = request.Execute(apiUrl, node, "POST").ToString();
+
+
+            string response = request.Execute(apiUrl, content, "POST").ToString();
 
             appendLine(response);
             /*
@@ -80,7 +88,7 @@ namespace Umb2Meteor.EventHandler {
              */
         }
 
-        private void appendLine(string line) {
+        public void appendLine(string line) {
             using (StreamWriter sw = System.IO.File.AppendText(HttpContext.Current.Server.MapPath("/test.txt"))) {
                 sw.WriteLine(DateTime.Now + " - " + line);
             }

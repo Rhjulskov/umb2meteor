@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
+using Umb2Meteor.EventHandler;
 
 namespace JsonRequest
 {
@@ -206,10 +207,13 @@ namespace JsonRequest
             {
                 using (var streamWriter = new StreamWriter(HttpRequest.GetRequestStream()))
                 {
-                    if (obj is string)
+                    if (obj is string) {
                         streamWriter.Write(obj);
-                    else
+                    }
+                    else {
+                        //Http EventHandlers.appendLine(JsonConvert.SerializeObject(obj));
                         streamWriter.Write(JsonConvert.SerializeObject(obj));
+                    }
                 }
             }
         }

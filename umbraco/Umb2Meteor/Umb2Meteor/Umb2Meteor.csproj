@@ -73,6 +73,7 @@
     <Compile Include="EventHandler\EventHandlers.cs" />
     <Compile Include="JsonRequest\Credentials.cs" />
     <Compile Include="JsonRequest\Request.cs" />
+    <Compile Include="Models\ContentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

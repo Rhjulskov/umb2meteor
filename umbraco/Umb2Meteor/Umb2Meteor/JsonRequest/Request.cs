@@ -73,6 +73,7 @@ namespace JsonRequest
             try
             {
                 HttpResponse = (HttpWebResponse)HttpRequest.GetResponse();
+                
             }
             catch (WebException error)
             {
@@ -80,7 +81,11 @@ namespace JsonRequest
                 return ReadResponseFromError(error);
             }
 
-            return JsonConvert.DeserializeObject<TT>(ReadResponse());
+            object readedResponse =  JsonConvert.DeserializeObject<TT>(ReadResponse());
+            HttpResponse.Close();
+            HttpResponse.Dispose();
+
+            return readedResponse;
         }
 
         public object Execute<TT>(string url)

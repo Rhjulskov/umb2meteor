@@ -1,65 +1,14 @@
 
 
 
-if (Content.find().count() === 0) {
+if (Content.find().count() === 0) { // Smid et && false på når den skal på live :) 
   
-
-  Content.insert(
-    getUmbracoNodeObject(1000, "Frontpage", "frontpage", new Date(), new Date(), "/", "1000", -1, 1, "Frontpage", 1, "frontpage", { head: "Welcome to umb2Meteor Starter kit", bodyText: "<p>Lorem ipsum</p>"}) 
-  );
-
-  Content.insert(
-    getUmbracoNodeObject(1001, "About us", "about-us", new Date(), new Date(), "/about-us", "1000,1001", 1000, 2, "Subpage", 1, "subpage", { head: "About us", bodyText: "<p>Vi hedder Peter og Rasmus :D</p>"}) 
-  );
-
-  Content.insert(
-    getUmbracoNodeObject(1002, "The project", "the-project", new Date(), new Date(), "/the-project", "1000,1002", 1000, 2, "Subpage", 2, "subpage", { head: "About the umb2Meteor project", bodyText: "<p>Lorem ipsum</p>"}) 
-  );
-
-  Content.insert(
-    getUmbracoNodeObject(1003, "News", "news", new Date(), new Date(), "/news", "1000,1003", 1000, 2, "Newspage", 3, "newslist", { head: "Project News" }) 
-  );
-
-  Content.insert(
-    getUmbracoNodeObject(1004, "News Item 1", "news-item-1", new Date(), new Date(), "/news/news-item-1", "1000,1003,1004", 1003, 3, "NewsItem", 1, "newsitem", { head: "News 1", bodyText: "<p>Lorem ipsum 1</p>", newsDate: new Date() }) 
-  );
-
-  Content.insert(
-    getUmbracoNodeObject(1005, "News Item 2", "news-item-2", new Date(), new Date(), "/news/news-item-2", "1000,1003,1005", 1003, 3, "NewsItem", 2, "newsitem", { head: "News 2", bodyText: "<p>Lorem ipsum 2</p>", newsDate: new Date() }) 
-  );
-
-  Content.insert(
-    getUmbracoNodeObject(1006, "News Item 3", "news-item-3", new Date(), new Date(), "/news/news-item-3", "1000,1003,1006", 1003, 3, "NewsItem", 3, "newsitem", { head: "News 3", bodyText: "<p>Lorem ipsum 3</p>", newsDate: new Date() }) 
-  );
-
-  Content.insert(
-    getUmbracoNodeObject(1007, "Contact", "contact", new Date(), new Date(), "/contact", "1000,1007", 1000, 2, "Contact", 4, "contact", { head: "Contact us", bodyText: "<p>Lorem ipsum</p>", contactEmail: "peter@designmonkey.dk" }) 
-  );
-
-
+  Content.insert({"id":1056,"name":"designmonkey.dk","level":1,"parent":-1,"sortOrder":1,"nodeTypeAlias":"Frontpage","createDate":1408088108310,"updateDate":1412379596862,"path":"-1,1056","url":"http://v2.designmonkey.dk/","niceUrl":"http://v2.designmonkey.dk/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"designmonkeydk","template":"Master"}); 
+  Content.insert({"id":1057,"name":"About","level":2,"parent":1056,"sortOrder":2,"nodeTypeAlias":"RegularText","createDate":1408088155160,"updateDate":1412379596884,"path":"-1,1056,1057","url":"http://v2.designmonkey.dk/about/","niceUrl":"http://v2.designmonkey.dk/about/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"about","template":"Master","head":"Om mig","body":"<p>Thundercats keytar mixtape, YOLO church-key umami wayfarers 3 wolf moon. Wayfarers post-ironic High Life YOLO. Direct trade Truffaut Neutra, ethnic swag readymade PBR&amp;B tote bag cliche.</p>\n<p>&nbsp;</p>\n<p>- Peter</p>\n<p>&nbsp;</p>"}); 
+  Content.insert({"id":1062,"name":"Contact","level":2,"parent":1056,"sortOrder":2,"nodeTypeAlias":"RegularText","createDate":1408088244110,"updateDate":1412379596891,"path":"-1,1056,1062","url":"http://v2.designmonkey.dk/contact/","niceUrl":"http://v2.designmonkey.dk/contact/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"contact","template":"Master","head":"Contact","body":""}); 
+  Content.insert({"id":1061,"name":"Monkey Lab","level":2,"parent":1056,"sortOrder":2,"nodeTypeAlias":"Gallery","createDate":1408088227183,"updateDate":1412379596897,"path":"-1,1056,1061","url":"http://v2.designmonkey.dk/monkey-lab/","niceUrl":"http://v2.designmonkey.dk/monkey-lab/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"monkey-lab","template":"Master","head":"Monkey lab"}); 
+  Content.insert({"id":1058,"name":"Work","level":2,"parent":1056,"sortOrder":2,"nodeTypeAlias":"Gallery","createDate":1408088165253,"updateDate":1412379596903,"path":"-1,1056,1058","url":"http://v2.designmonkey.dk/work/","niceUrl":"http://v2.designmonkey.dk/work/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"work","template":"Master","head":"This is my work"}); 
+  Content.insert({"id":1059,"name":"5 seconds weekly","level":2,"parent":1056,"sortOrder":2,"nodeTypeAlias":"Gallery","createDate":1408088190883,"updateDate":1412379596909,"path":"-1,1056,1059","url":"http://v2.designmonkey.dk/5-seconds-weekly/","niceUrl":"http://v2.designmonkey.dk/5-seconds-weekly/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"5-seconds-weekly","template":"Master","head":"5 Seconds Weekly"}); 
+  Content.insert({"id":1060,"name":"Skills","level":2,"parent":1056,"sortOrder":2,"nodeTypeAlias":"RegularText","createDate":1408088210507,"updateDate":1412379596915,"path":"-1,1056,1060","url":"http://v2.designmonkey.dk/skills/","niceUrl":"http://v2.designmonkey.dk/skills/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"skills","template":"Master","head":"What I do","body":"<p>Tester</p>"}); 
 }
-
-
-function getUmbracoNodeObject(id, name, urlName, createDate, updateDate, url, path, parentId, level, nodeTypeAlias, sortOrder, templateAlias, properties) {
-
-  var umbNode = {
-    Id: id, // UmbID, da Id vel er Mongo ID'et. Kunne ændres til Id, hvis Mongo id er lowercase eller med _id 
-    Name: name,
-    UrlName: urlName,
-    CreateDate: createDate,
-    UpdateDate: updateDate,
-    Url: url,
-    Path: path,
-    Level: level,
-    NodeTypeAlias: nodeTypeAlias,
-    Template: templateAlias, // Umbraco bruger et ID, men så skal vi have en template Collection også, hvor kunne sende Template Alias med, og så matche det med Meteor templates :)
-    SortOrder: sortOrder,
-    Parent: parentId
-  }
-
-  _.extend(umbNode, properties);
-
-  return umbNode;
-}
-
 

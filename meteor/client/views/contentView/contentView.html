@@ -2,25 +2,41 @@
   <!-- Should loop through all content in the mongoDB -->
   {{ #each content }}
 
-  	{{#if templateIs "frontpage" }}
-  		{{>frontpage}}
-  	{{/if}}
-  	{{#if templateIs "subpage" }}
-  		{{>subpage}}
-  	{{/if}}
-  	{{#if templateIs "newslist" }}
-  		{{>newslist}}
-  	{{/if}}
-  	{{#if templateIs "newsitem" }}
-  		{{>newsitem}}
-  	{{/if}}
-    {{#if templateIs "contact" }}
-      {{>contact}}
+
+    {{#if nodeTypeIs "Frontpage" }}
+      <div>
+        <h2>{{ name }}</h2>
+        <p>Last updated: {{ formatTime updateDate  }}</p>
+        <ul>
+          {{#each children this}}
+            <li>{{name}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <hr/>
     {{/if}}
 
-    {{#if templateIs "Master" }}
-      {{>subpage}}
+
+    {{#if nodeTypeIs "RegularText" }}
+      <div>
+        <h2>{{ head }}</h2>
+        <p>Last updated: {{ formatTime updateDate  }} </p>
+        {{{ body }}}
+      </div>
+      <hr/>
     {{/if}}
+
+    {{#if nodeTypeIs "Gallery" }}
+      <div>
+        <h2>{{ head }}</h2>
+        <p>Last updated: {{ formatTime updateDate  }} </p>
+        {{{ body }}}
+      </div>
+      <hr/>
+    {{/if}}
+
+    
+
   {{ /each }}
 
 </template>

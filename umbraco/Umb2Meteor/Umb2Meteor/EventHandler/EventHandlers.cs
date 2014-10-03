@@ -10,14 +10,16 @@ using System.Web;
 using System.Net;
 using System.Text;
 using System.Configuration;
-using Umb2Meteor.Models;
 using umbraco.NodeFactory;
 using umbraco;
+using System.Dynamic;
+using System.Collections.Generic;
 
 namespace Umb2Meteor.EventHandler {
     public class EventHandlers : ApplicationEventHandler {
         private string apiUrl;
         private string apiKey;
+        private DateTime UnixEpoch = new DateTime(1970, 1, 1);
 
         public EventHandlers()
         {
@@ -25,44 +27,54 @@ namespace Umb2Meteor.EventHandler {
             apiKey = readSetting("umb2MeteorApiKey");
 
             ContentService.Published += publishToMeteor;
+
         }
+
+
+
 
         private void publishToMeteor(IPublishingStrategy sender, PublishEventArgs<IContent> args)
         {
             foreach (var node in args.PublishedEntities)
             {
                 Node thisNode = new Node(node.Id);
-                ContentModel content = new ContentModel();
-                content.Id = node.Id;
-                content.Name = node.Name;
-                content.Level = node.Level;
-                content.Parent = node.ParentId;
-                content.SortOrder = node.Level;
-                content.NodeTypeAlias = node.ContentType.Alias;//node.Level;
-                content.CreateDate = node.CreateDate;
-                content.UpdateDate = node.UpdateDate;
-                content.Path = node.Path;
-                content.Url = thisNode.Url;
-                content.NiceUrl = thisNode.NiceUrl;
-                content.CreatorName = thisNode.CreatorName;
-                content.WriteName = thisNode.WriterName;
-                content.UrlName = thisNode.UrlName;
-                content.Template = node.Template.Alias;
+                dynamic content = new ExpandoObject();
+                content._umb2MeteorApiKey = apiKey;
+                content.id = node.Id;
+                content.name = node.Name;
+                content.level = node.Level;
+                content.parent = node.ParentId;
+                content.sortOrder = node.Level;
+                content.nodeTypeAlias = node.ContentType.Alias;//node.Level;
+                content.createDate = toUnixTime(node.CreateDate);
+                content.updateDate = toUnixTime(node.UpdateDate);
+                content.path = node.Path;
+                content.url = thisNode.Url;
+                content.niceUrl = thisNode.NiceUrl;
+                content.creatorName = thisNode.CreatorName;
+                content.writeName = thisNode.WriterName;
+                content.urlName = thisNode.UrlName;
+                content.template = node.Template.Alias;
+
                 foreach (var prop in node.Properties) {
-                    PropertyModel property = new PropertyModel();
-                    property.Alias = prop.Alias;
-                    property.Value = prop.Value;
-                    content.Properties.Add(property);
+                    ((IDictionary<string, object>)content)[prop.Alias] = (prop.Value.GetType() ==  typeof(DateTime)) ? toUnixTime((DateTime)prop.Value) : prop.Value;
                 }
+
                 SendNode(content);
 
             }
         }
 
-        private void SendNode(ContentModel content) {
+
+        private long toUnixTime(DateTime dateTime) {
+            return (dateTime - UnixEpoch).Ticks / TimeSpan.TicksPerMillisecond;
+        }
+
+        private void SendNode(object content) {
             // Create a request using a URL that can receive a post. 
             JsonRequest.Request request = new JsonRequest.Request();
             string response = request.Execute(apiUrl, content, "POST").ToString();
+            
             appendLine(response);
         }
 

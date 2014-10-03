@@ -10,27 +10,29 @@ Router.map(function() {
             var data = this.request.body;
             // Could be, e.g. application/xml, etc.
             this.response.writeHead(200, {'Content-Type': 'text/html'});
-            console.log(data);
-            console.log(Content.findOne({id: data.Id }));
-            if(Content.findOne({id: data.Id }) == undefined) {
-                var newId = Content.insert(data);
-                this.response.end('Inserted: ' + newId);
+
+            if(data._umb2MeteorApiKey == "1234567891012345678910123456789101234567891012345678910") {
+
+                delete data._umb2MeteorApiKey;
+
+                if(Content.findOne({id: data.id }) == undefined) {
+                    var newId = Content.insert(data);
+                    var logText = "Inserted: " + data.name + "("+ data.id +") by "+ data.writerName + " :: " + newId; 
+                    this.response.end(logText);
+                    console.log(logText);
+                }
+                else {
+                    Content.update({ id: data.id }, {$set: data});
+                    var logText = "Updated: " + data.name + "("+ data.id +") by "+ data.writerName + " :: " + data._id; 
+                    this.response.end(logText);
+                    console.log(logText);
+                }
             }
             else {
-
-                Content.update({ id: data.Id }, {$set: data}, function(error) {
-                  if (error) {
-                    this.response.end('Update error: ');    
-                  } else {
-                    this.response.end('Updated');    
-                  }
-                });
-
+                this.response.end("Error: Wrong API Key");
+                console.log("Error: Wrong API Key")
             }
-            // Lav API key checker og sorter API key fra :) 
-            // Lav her søg efter Content.find({ id: requestData.id }) og så update eller insert
-            //this.response.end('Testing: ' + JSON.stringify(requestData));
-            //console.log(requestMethod);
+
         }
     });
 });

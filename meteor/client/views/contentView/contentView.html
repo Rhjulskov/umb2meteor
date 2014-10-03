@@ -14,9 +14,13 @@
   	{{#if templateIs "newsitem" }}
   		{{>newsitem}}
   	{{/if}}
-  	{{#if templateIs "contact" }}
-  		{{>contact}}
-  	{{/if}}
+    {{#if templateIs "contact" }}
+      {{>contact}}
+    {{/if}}
+
+    {{#if templateIs "Master" }}
+      {{>subpage}}
+    {{/if}}
   {{ /each }}
 
 </template>

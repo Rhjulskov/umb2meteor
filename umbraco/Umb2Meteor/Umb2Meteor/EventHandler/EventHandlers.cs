@@ -11,6 +11,8 @@ using System.Net;
 using System.Text;
 using System.Configuration;
 using Umb2Meteor.Models;
+using umbraco.NodeFactory;
+using umbraco;
 
 namespace Umb2Meteor.EventHandler {
     public class EventHandlers : ApplicationEventHandler {
@@ -22,18 +24,36 @@ namespace Umb2Meteor.EventHandler {
             apiUrl = readSetting("umb2MeteorApiUrl");
             apiKey = readSetting("umb2MeteorApiKey");
 
-            ContentService.Published += Go;
+            ContentService.Published += publishToMeteor;
         }
 
-        private void Go(IPublishingStrategy sender, PublishEventArgs<IContent> args)
+        private void publishToMeteor(IPublishingStrategy sender, PublishEventArgs<IContent> args)
         {
             foreach (var node in args.PublishedEntities)
             {
-                appendLine(node.Id + " : " + node.Name);
+                Node thisNode = new Node(node.Id);
                 ContentModel content = new ContentModel();
                 content.Id = node.Id;
                 content.Name = node.Name;
-
+                content.Level = node.Level;
+                content.Parent = node.ParentId;
+                content.SortOrder = node.Level;
+                content.NodeTypeAlias = node.ContentType.Alias;//node.Level;
+                content.CreateDate = node.CreateDate;
+                content.UpdateDate = node.UpdateDate;
+                content.Path = node.Path;
+                content.Url = thisNode.Url;
+                content.NiceUrl = thisNode.NiceUrl;
+                content.CreatorName = thisNode.CreatorName;
+                content.WriteName = thisNode.WriterName;
+                content.UrlName = thisNode.UrlName;
+                content.Template = node.Template.Alias;
+                foreach (var prop in node.Properties) {
+                    PropertyModel property = new PropertyModel();
+                    property.Alias = prop.Alias;
+                    property.Value = prop.Value;
+                    content.Properties.Add(property);
+                }
                 SendNode(content);
 
             }
@@ -41,55 +61,17 @@ namespace Umb2Meteor.EventHandler {
 
         private void SendNode(ContentModel content) {
             // Create a request using a URL that can receive a post. 
-
-            
             JsonRequest.Request request = new JsonRequest.Request();
-
-
-
             string response = request.Execute(apiUrl, content, "POST").ToString();
-
             appendLine(response);
-            /*
-            WebRequest request = WebRequest.Create("http://umb2meteor.meteor.com/api/umb2Meteor");
-            
-
-            // Set the Method property of the request to POST.
-            request.Method = "POST";
-            // Create POST data and convert it to a byte array.
-            string postData = "This is a test that posts this string to a Web server.";
-            byte[] byteArray = Encoding.UTF8.GetBytes (postData);
-            // Set the ContentType property of the WebRequest.
-            request.ContentType = "text/json";
-            // Set the ContentLength property of the WebRequest.
-            request.ContentLength = byteArray.Length;
-            // Get the request stream.
-            Stream dataStream = request.GetRequestStream ();
-            // Write the data to the request stream.
-            dataStream.Write (byteArray, 0, byteArray.Length);
-            // Close the Stream object.
-            dataStream.Close ();
-            // Get the response.
-            WebResponse response = request.GetResponse ();
-            // Display the status.
-            Console.WriteLine (((HttpWebResponse)response).StatusDescription);
-            // Get the stream containing content returned by the server.
-            dataStream = response.GetResponseStream ();
-            // Open the stream using a StreamReader for easy access.
-            StreamReader reader = new StreamReader (dataStream);
-            // Read the content.
-            string responseFromServer = reader.ReadToEnd ();
-            // Display the content.
-            appendLine(responseFromServer);
-            // Clean up the streams.
-            reader.Close ();
-            dataStream.Close ();
-            response.Close ();
-             */
         }
 
         public void appendLine(string line) {
-            using (StreamWriter sw = System.IO.File.AppendText(HttpContext.Current.Server.MapPath("/test.txt"))) {
+            string logPath = HttpContext.Current.Server.MapPath("/umb2metorlog.txt");
+            if (!System.IO.File.Exists(logPath)) {
+                System.IO.File.Create(logPath);
+            }
+            using (StreamWriter sw = System.IO.File.AppendText(logPath)) {
                 sw.WriteLine(DateTime.Now + " - " + line);
             }
         }

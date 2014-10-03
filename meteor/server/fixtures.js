@@ -43,7 +43,7 @@ if (Content.find().count() === 0) {
 function getUmbracoNodeObject(id, name, urlName, createDate, updateDate, url, path, parentId, level, nodeTypeAlias, sortOrder, templateAlias, properties) {
 
   var umbNode = {
-    UmbId: id, // UmbID, da Id vel er Mongo ID'et. Kunne ændres til Id, hvis Mongo id er lowercase eller med _id 
+    Id: id, // UmbID, da Id vel er Mongo ID'et. Kunne ændres til Id, hvis Mongo id er lowercase eller med _id 
     Name: name,
     UrlName: urlName,
     CreateDate: createDate,

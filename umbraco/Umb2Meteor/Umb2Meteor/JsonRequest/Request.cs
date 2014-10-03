@@ -27,7 +27,7 @@ namespace JsonRequest
         /// </summary>
         public String Content
         {
-            get { return "text/json"; }
+            get { return "application/json"; }
         }
 
         /// <summary>

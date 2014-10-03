@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="businesslogic">
+      <HintPath>..\..\packages\bin\businesslogic.dll</HintPath>
+    </Reference>
+    <Reference Include="cms">
+      <HintPath>..\..\packages\bin\cms.dll</HintPath>
+    </Reference>
     <Reference Include="interfaces">
       <HintPath>..\..\packages\bin\interfaces.dll</HintPath>
     </Reference>
@@ -62,6 +68,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="umbraco">
+      <HintPath>..\..\packages\bin\umbraco.dll</HintPath>
+    </Reference>
     <Reference Include="Umbraco.Core">
       <HintPath>..\..\packages\bin\Umbraco.Core.dll</HintPath>
     </Reference>

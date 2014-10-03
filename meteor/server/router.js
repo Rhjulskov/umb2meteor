@@ -11,8 +11,10 @@ Router.map(function() {
             // Could be, e.g. application/xml, etc.
             this.response.writeHead(200, {'Content-Type': 'text/html'});
             console.log(requestData);
-            this.response.end('Testing: ' + JSON.stringify(requestData));
-            console.log(requestMethod);
+            // Lav API key checker og sorter API key fra :) 
+            // Lav her søg efter Content.find({ id: requestData.id }) og så update eller insert
+            //this.response.end('Testing: ' + JSON.stringify(requestData));
+            //console.log(requestMethod);
         }
     });
 });

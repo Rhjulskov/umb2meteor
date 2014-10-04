@@ -30,6 +30,7 @@ log = function(str) {
 	console.log(str);
 }
 
+// Bruges til at console.logge koden til ens fixtures :) 
 createFixtures = function() {
   Content.find().forEach(function(node) {
   	var insertNode = node;
@@ -37,6 +38,5 @@ createFixtures = function() {
   	console.log("Content.insert(" + JSON.stringify(insertNode) + ");");
   })
 }
-
 
 

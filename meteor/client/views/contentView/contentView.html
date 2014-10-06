@@ -1,42 +1,39 @@
 <template name="contentView">
   <!-- Should loop through all content in the mongoDB -->
-  {{ #each content }}
+    <div class="container">
 
+      {{#if nodeTypeIs "Frontpage" }}
+        <div>
+          <h2>{{ name }}</h2>
+          <p>Last updated: {{ formatTime updateDate  }}</p>
+          <ul>
+            {{#each children this}}
+              <li>{{name}}</li>
+            {{/each}}
+          </ul>
+        </div>
+        <hr/>
+      {{/if}}
 
-    {{#if nodeTypeIs "Frontpage" }}
-      <div>
-        <h2>{{ name }}</h2>
-        <p>Last updated: {{ formatTime updateDate  }}</p>
-        <ul>
-          {{#each children this}}
-            <li>{{name}}</li>
-          {{/each}}
-        </ul>
-      </div>
-      <hr/>
-    {{/if}}
+      {{#if nodeTypeIs "RegularText" }}
+        <div>
+          <h2>{{ head }}</h2>
+          <p>Last updated: {{ formatTime updateDate  }} </p>
+          {{{ body }}}
+        </div>
+        <hr/>
+      {{/if}}
 
+      {{#if nodeTypeIs "Gallery" }}
+        <div>
+          <h2>{{ head }}</h2>
+          <p>Last updated: {{ formatTime updateDate  }} </p>
+          {{{ body }}}
+        </div>
+        <hr/>
+      {{/if}}
 
-    {{#if nodeTypeIs "RegularText" }}
-      <div>
-        <h2>{{ head }}</h2>
-        <p>Last updated: {{ formatTime updateDate  }} </p>
-        {{{ body }}}
-      </div>
-      <hr/>
-    {{/if}}
+    </div>
 
-    {{#if nodeTypeIs "Gallery" }}
-      <div>
-        <h2>{{ head }}</h2>
-        <p>Last updated: {{ formatTime updateDate  }} </p>
-        {{{ body }}}
-      </div>
-      <hr/>
-    {{/if}}
-
-    
-
-  {{ /each }}
 
 </template>

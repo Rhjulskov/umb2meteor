@@ -44,13 +44,13 @@ namespace Umb2Meteor.EventHandler {
                 content.name = node.Name;
                 content.level = node.Level;
                 content.parent = node.ParentId;
-                content.sortOrder = node.Level;
+                content.sortOrder = node.SortOrder;
                 content.nodeTypeAlias = node.ContentType.Alias;//node.Level;
                 content.createDate = toUnixTime(node.CreateDate);
                 content.updateDate = toUnixTime(node.UpdateDate);
                 content.path = node.Path;
                 content.url = thisNode.Url;
-                content.niceUrl = thisNode.NiceUrl;
+                content.niceUrl = new Uri(thisNode.NiceUrl).AbsolutePath;
                 content.creatorName = thisNode.CreatorName;
                 content.writeName = thisNode.WriterName;
                 content.urlName = thisNode.UrlName;

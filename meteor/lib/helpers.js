@@ -1,5 +1,20 @@
 // følgende loades først, da det ligger i lib folderen > ved ikke om det er nødvendigt?
 
+UI.registerHelper('rootChildren', function() {
+  var root = Content.findOne({level: 1, niceUrl: "/" });
+  if(root != undefined) {
+    return Content.find({ parent: root.id }, { sort: { sortOrder : 1 } });
+  }
+  else {
+    return null;
+  }
+});
+
+UI.registerHelper('isCurrentPage', function(urlPath) {
+  return location.pathname == urlPath;
+});
+
+
 UI.registerHelper('children', function() {
   return Content.find({ parent: this.id });
 });
@@ -24,6 +39,8 @@ UI.registerHelper("templateIs", function(template) {
 UI.registerHelper("nodeTypeIs", function(nodeType) {
 	return this.nodeTypeAlias === nodeType;
 });
+
+
 
 
 log = function(str) {

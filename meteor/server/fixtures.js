@@ -1,7 +1,7 @@
 
 
 
-if (Content.find().count() === 0) { // Smid et && false på når den skal på live :) 
+if (Content.find().count() === 0 && 1 == 2) { // Smid et && false på når den skal på live :) 
   
   Content.insert({"id":1056,"name":"designmonkey.dk","level":1,"parent":-1,"sortOrder":1,"nodeTypeAlias":"Frontpage","createDate":1408088108310,"updateDate":1412379596862,"path":"-1,1056","url":"http://v2.designmonkey.dk/","niceUrl":"http://v2.designmonkey.dk/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"designmonkeydk","template":"Master"}); 
   Content.insert({"id":1057,"name":"About","level":2,"parent":1056,"sortOrder":2,"nodeTypeAlias":"RegularText","createDate":1408088155160,"updateDate":1412379596884,"path":"-1,1056,1057","url":"http://v2.designmonkey.dk/about/","niceUrl":"http://v2.designmonkey.dk/about/","creatorName":"Peter Nielsen","writeName":"Peter Nielsen","urlName":"about","template":"Master","head":"Om mig","body":"<p>Thundercats keytar mixtape, YOLO church-key umami wayfarers 3 wolf moon. Wayfarers post-ironic High Life YOLO. Direct trade Truffaut Neutra, ethnic swag readymade PBR&amp;B tote bag cliche.</p>\n<p>&nbsp;</p>\n<p>- Peter</p>\n<p>&nbsp;</p>"}); 

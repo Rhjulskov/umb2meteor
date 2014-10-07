@@ -26,16 +26,41 @@ namespace Umb2Meteor.EventHandler {
             apiUrl = readSetting("umb2MeteorApiUrl");
             apiKey = readSetting("umb2MeteorApiKey");
 
-            ContentService.Published += publishToMeteor;
+            ContentService.Published += ContentService_Published;
+            ContentService.UnPublished += ContentService_UnPublished;
+            ContentService.Deleted += ContentService_Deleted;
 
+            MediaService.Saved += MediaService_Saved;
+            MediaService.Deleted += MediaService_Deleted;
+        }
+
+        void MediaService_Deleted(IMediaService sender, DeleteEventArgs<IMedia> e) {
+            throw new NotImplementedException();
+        }
+
+        void MediaService_Created(IMediaService sender, NewEventArgs<IMedia> e) {
+            throw new NotImplementedException();
+        }
+
+        void ContentService_Deleted(IContentService sender, DeleteEventArgs<IContent> e) {
+            throw new NotImplementedException();
+        }
+
+        void ContentService_UnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e) {
+            throw new NotImplementedException();
+        }
+
+
+        void MediaService_Saved(IMediaService sender, SaveEventArgs<IMedia> e) {
+            throw new NotImplementedException();
         }
 
 
 
 
-        private void publishToMeteor(IPublishingStrategy sender, PublishEventArgs<IContent> args)
+        private void ContentService_Published(IPublishingStrategy sender, PublishEventArgs<IContent> e)
         {
-            foreach (var node in args.PublishedEntities)
+            foreach (var node in e.PublishedEntities)
             {
                 Node thisNode = new Node(node.Id);
                 dynamic content = new ExpandoObject();
@@ -45,7 +70,7 @@ namespace Umb2Meteor.EventHandler {
                 content.level = node.Level;
                 content.parent = node.ParentId;
                 content.sortOrder = node.SortOrder;
-                content.nodeTypeAlias = node.ContentType.Alias;//node.Level;
+                content.nodeTypeAlias = node.ContentType.Alias;
                 content.createDate = toUnixTime(node.CreateDate);
                 content.updateDate = toUnixTime(node.UpdateDate);
                 content.path = node.Path;

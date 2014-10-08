@@ -33,31 +33,43 @@ namespace Umb2Meteor.EventHandler {
             ContentService.Published += ContentService_Published;
             ContentService.UnPublished += ContentService_UnPublished;
             ContentService.Deleted += ContentService_Deleted;
+            ContentService.Trashed += ContentService_Trashed;
 
             MediaService.Saved += MediaService_Saved;
             MediaService.Deleted += MediaService_Deleted;
+            MediaService.Trashed += MediaService_Trashed;
+
+        }
+
+        void ContentService_Trashed(IContentService sender, MoveEventArgs<IContent> e) {
+                IContent node = e.Entity;
+                dynamic content = new ExpandoObject();
+                content._umb2MeteorApiKey = apiKey;
+                content.id = node.Id;
+                content.uniqueId = node.Key.ToString();
+                content.name = node.Name;
+                deleteNode(content);
         }
 
         private void ContentService_Deleted(IContentService sender, DeleteEventArgs<IContent> e) {
             foreach (var node in e.DeletedEntities) {
-                Node thisNode = new Node(node.Id);
                 dynamic content = new ExpandoObject();
                 content._umb2MeteorApiKey = apiKey;
                 content.id = node.Id;
+                content.uniqueId = node.Key.ToString();
                 content.name = node.Name;
-                content.writerName = thisNode.WriterName;
                 deleteNode(content);
             }
         }
 
         private void ContentService_UnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e) {
             foreach (var node in e.PublishedEntities) {
-                Node thisNode = new Node(node.Id);
                 dynamic content = new ExpandoObject();
                 content._umb2MeteorApiKey = apiKey;
                 content.id = node.Id;
+                content.uniqueId = node.Key.ToString();
                 content.name = node.Name;
-                content.writerName = thisNode.WriterName;
+
                 deleteNode(content);
             }
         }
@@ -69,6 +81,7 @@ namespace Umb2Meteor.EventHandler {
                 dynamic content = new ExpandoObject();
                 content._umb2MeteorApiKey = apiKey;
                 content.id = node.Id;
+                content.uniqueId = node.Key.ToString();
                 content.name = node.Name;
                 content.level = node.Level;
                 content.parent = node.ParentId;
@@ -85,7 +98,12 @@ namespace Umb2Meteor.EventHandler {
                 content.template = node.Template.Alias;
 
                 foreach (var prop in node.Properties) {
-                    ((IDictionary<string, object>)content)[prop.Alias] = (prop.Value.GetType() ==  typeof(DateTime)) ? toUnixTime((DateTime)prop.Value) : prop.Value;
+                    try {
+                        ((IDictionary<string, object>)content)[prop.Alias] = (prop.Value.GetType() == typeof(DateTime)) ? toUnixTime((DateTime)prop.Value) : prop.Value;
+                    }
+                    catch (Exception ex) {
+                        ((IDictionary<string, object>)content)[prop.Alias] = ex.Message;
+                    }
                 }
 
                 publishNode(content);
@@ -98,10 +116,20 @@ namespace Umb2Meteor.EventHandler {
                 dynamic media = new ExpandoObject();
                 media._umb2MeteorApiKey = apiKey;
                 media.id = thisMedia.Id;
+                media.uniqueId = thisMedia.Key.ToString();
                 media.name = thisMedia.Name;
-                media.creatorName = thisMedia.CreatorId;
                 deleteMedia(media);
             }
+        }
+
+        void MediaService_Trashed(IMediaService sender, MoveEventArgs<IMedia> e) {
+            dynamic media = new ExpandoObject();
+            IMedia thisMedia = e.Entity;
+            media._umb2MeteorApiKey = apiKey;
+            media.id = thisMedia.Id;
+            media.uniqueId = thisMedia.Key.ToString();
+            media.name = thisMedia.Name;
+            deleteMedia(media);
         }
 
         private void MediaService_Created(IMediaService sender, NewEventArgs<IMedia> e) {
@@ -109,6 +137,7 @@ namespace Umb2Meteor.EventHandler {
             dynamic media = new ExpandoObject();
             media._umb2MeteorApiKey = apiKey;
             media.id = thisMedia.Id;
+            media.uniqueId = thisMedia.Key.ToString();
             media.name = thisMedia.Name;
             media.level = thisMedia.Level;
             media.parent = thisMedia.ParentId;
@@ -117,10 +146,21 @@ namespace Umb2Meteor.EventHandler {
             media.createDate = toUnixTime(thisMedia.CreateDate);
             media.updateDate = toUnixTime(thisMedia.UpdateDate);
             media.path = thisMedia.Path;
-            media.creatorName = thisMedia.CreatorId;
+            string url = HttpContext.Current.Request.Url.Host.ToLower();
+            url = (url.IndexOf("http") != 0) ? HttpContext.Current.Request.Url.Scheme + "://" + url : url;
+            url = (url.Substring(url.Length - 1) == "/") ? url.Substring(0, url.Length - 1) : url;
 
             foreach (var prop in thisMedia.Properties) {
-                ((IDictionary<string, object>)media)[prop.Alias] = (prop.Value.GetType() == typeof(DateTime)) ? toUnixTime((DateTime)prop.Value) : prop.Value;
+                try {
+                    ((IDictionary<string, object>)media)[prop.Alias] = (prop.Value.GetType() == typeof(DateTime)) ? toUnixTime((DateTime)prop.Value) : prop.Value;
+                    if (prop.Alias == "umbracoFile") {
+                        url += prop.Value.ToString();
+                        media.url = url;
+                    }
+                }
+                catch (Exception ex) {
+                    ((IDictionary<string, object>)media)[prop.Alias] = ex.Message;
+                }
             }
 
             publishMedia(media);
@@ -132,6 +172,7 @@ namespace Umb2Meteor.EventHandler {
                 dynamic media = new ExpandoObject();
                 media._umb2MeteorApiKey = apiKey;
                 media.id = thisMedia.Id;
+                media.uniqueId = thisMedia.Key.ToString();
                 media.name = thisMedia.Name;
                 media.level = thisMedia.Level;
                 media.parent = thisMedia.ParentId;
@@ -140,10 +181,22 @@ namespace Umb2Meteor.EventHandler {
                 media.createDate = toUnixTime(thisMedia.CreateDate);
                 media.updateDate = toUnixTime(thisMedia.UpdateDate);
                 media.path = thisMedia.Path;
-                media.creatorName = thisMedia.CreatorId;
+
+                string url = HttpContext.Current.Request.Url.Host.ToLower();
+                url = (url.IndexOf("http") != 0) ? HttpContext.Current.Request.Url.Scheme +"://"+ url : url;
+                url = (url.Substring(url.Length-1) == "/") ? url.Substring(0, url.Length-1) : url;
 
                 foreach (var prop in thisMedia.Properties) {
-                    ((IDictionary<string, object>)media)[prop.Alias] = (prop.Value.GetType() == typeof(DateTime)) ? toUnixTime((DateTime)prop.Value) : prop.Value;
+                    try {
+                        ((IDictionary<string, object>)media)[prop.Alias] = (prop.Value.GetType() == typeof(DateTime)) ? toUnixTime((DateTime)prop.Value) : prop.Value;
+                        if (prop.Alias == "umbracoFile") {
+                            url += prop.Value.ToString();
+                            media.url = url;
+                        }
+                    }
+                    catch (Exception ex) {
+                        ((IDictionary<string, object>)media)[prop.Alias] = ex.Message;
+                    }
                 }
 
                 publishMedia(media);
@@ -159,28 +212,28 @@ namespace Umb2Meteor.EventHandler {
             // Create a request using a URL that can receive a post. 
             JsonRequest.Request request = new JsonRequest.Request();
             string response = request.Execute(apiUrl + "publishNode", content, "POST").ToString();
-            appendLine(response);
+            appendLine("publishNode() :: " + response);
         }
 
         private void deleteNode(object content) {
             // Create a request using a URL that can receive a post. 
             JsonRequest.Request request = new JsonRequest.Request();
             string response = request.Execute(apiUrl + "deleteNode", content, "POST").ToString();
-            appendLine(response);
+            appendLine("deleteNode() :: " + response);
         }
 
         private void publishMedia(object media) {
             // Create a request using a URL that can receive a post. 
             JsonRequest.Request request = new JsonRequest.Request();
             string response = request.Execute(apiUrl + "publishMedia", media, "POST").ToString();
-            appendLine(response);
+            appendLine("publishMedia() :: " + response);
         }
 
         private void deleteMedia(object media) {
             // Create a request using a URL that can receive a post. 
             JsonRequest.Request request = new JsonRequest.Request();
             string response = request.Execute(apiUrl + "deleteMedia", media, "POST").ToString();
-            appendLine(response);
+            appendLine("deleteMedia() :: " + response);
         }
 
         private void appendLine(string line) {

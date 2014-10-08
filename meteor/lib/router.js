@@ -30,6 +30,7 @@ Router.map(function() {
     where: 'server',
     action: function() {
       var data = this.request.body;
+      console.log(data);
       var thisResponse = this;
       thisResponse.response.writeHead(200, {'Content-Type': 'text/html'});
       Meteor.call('deleteNode', data, function (error, result) {

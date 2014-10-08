@@ -6,42 +6,78 @@ Router.configure({
 
 Router.map(function() {
 
-   this.route('meteorApi', {
-    path: '/api/umb2Meteor',
+  // Call publish content node
+  this.route('meteorApiPublishNode', {
+    path: '/umb2MeteorApi/publishNode',
     where: 'server',
     action: function() {
-      // GET, POST, PUT, DELETE
-      var requestMethod = this.request.method;
-      // Data from a POST request
       var data = this.request.body;
-      // Could be, e.g. application/xml, etc.
-      this.response.writeHead(200, {'Content-Type': 'text/html'});
-
-      if(data._umb2MeteorApiKey == "1234567891012345678910123456789101234567891012345678910") {
-
-        delete data._umb2MeteorApiKey;  
-
-
-        if(Content.findOne({id: data.id }) == undefined) {
-          var newId = Content.insert(data);
-          var logText = "Inserted: " + data.name + "("+ data.id +") by "+ data.writerName + " :: " + newId; 
-          this.response.end(logText);
-          console.log(logText);
+      var thisResponse = this;
+      thisResponse.response.writeHead(200, {'Content-Type': 'text/html'});
+      Meteor.call('publishNode', data, function (error, result) {
+        if(error) {
+          thisResponse.response.end("Error: " + error.reason);
+          return;
         }
-        else {
-          Content.update({ id: data.id }, {$set: data});
-          var logText = "Updated: " + data.name + "("+ data.id +") by "+ data.writerName + " :: " + data._id; 
-          this.response.end(logText);
-          console.log(logText);
-        }
-      }
-      else {
-        this.response.end("Error: Wrong API Key");
-        console.log("Error: Wrong API Key")
-      }
-
+        thisResponse.response.end(result);
+      });
     }
   });
+
+  // Call delete content node
+  this.route('meteorApiDeleteNode', {
+    path: '/umb2MeteorApi/deleteNode',
+    where: 'server',
+    action: function() {
+      var data = this.request.body;
+      console.log(data);
+      var thisResponse = this;
+      thisResponse.response.writeHead(200, {'Content-Type': 'text/html'});
+      Meteor.call('deleteNode', data, function (error, result) {
+        if(error) {
+          thisResponse.response.end("Error: " + error.reason);
+          return;
+        }
+        thisResponse.response.end(result);
+      });
+    }
+  });  
+
+  // Call publish media node
+  this.route('meteorApiPublishMedia', {
+    path: '/umb2MeteorApi/publishMedia',
+    where: 'server',
+    action: function() {
+      var data = this.request.body;
+      var thisResponse = this;
+      thisResponse.response.writeHead(200, {'Content-Type': 'text/html'});
+      Meteor.call('publishMedia', data, function (error, result) {
+        if(error) {
+          thisResponse.response.end("Error: " + error.reason);
+          return;
+        }
+        thisResponse.response.end(result);
+      });
+    }
+  });
+
+  // Call delete media node
+  this.route('meteorApiDeleteMedia', {
+    path: '/umb2MeteorApi/deleteMedia',
+    where: 'server',
+    action: function() {
+      var data = this.request.body;
+      var thisResponse = this;
+      thisResponse.response.writeHead(200, {'Content-Type': 'text/html'});
+      Meteor.call('deleteMedia', data, function (error, result) {
+        if(error) {
+          thisResponse.response.end("Error: " + error.reason);
+          return;
+        }
+        thisResponse.response.end(result);
+      });
+    }
+  });    
 
 
   // Root Level 1

@@ -1,0 +1,18 @@
+
+<template name="newslist">
+	<div data-nodetypealias="{{NodeTypeAlias}}">
+		<h1>{{childrenCount}} - {{head}}</h1>
+		<div>
+      <i>Added simple router link:</i>
+      <ul>
+  			{{#each children}}
+  				<li>
+            <a href="{{pathFor 'newsitem'}}">
+              {{head}}
+            </a>
+          </li>
+  			{{/each}}
+      </ul>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,26 @@
+<!--
+@inherits UmbracoTemplatePage
+-->
+<template name="umbhomepagebanner">
+<!--{{#if HideBanner}}  currentpage.HideBanner -->
+  
+
+   <!-- var link = CurrentPage.BannerLink.ToString();-->
+    
+      <!-- Banner -->
+      <div id="banner-wrapper" style="background: url('@CurrentPage.BannerBackgroundImage') center center no-repeat;">
+          <section id="banner">
+              <h2>hey{{bannerHeader}}</h2>
+              <span class="byline">{{bannerSubheader}}</span>
+              
+          <!-- Only show the banner link if the link isn't empty -->
+        
+           <!-- {{#if link}}-->
+              <a href="@Umbraco.Content(link).Url" class="button">{{bannerLinkText}}</a>
+            <!--{{/if}}-->
+          </section>
+      </div>
+      <!-- /Banner -->
+
+<!--  {{/if}}-->
+</template>

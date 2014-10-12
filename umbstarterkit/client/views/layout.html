@@ -1,0 +1,39 @@
+<template name="layout">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">
+            <div>
+                <h1><a href="/" id="logo">{{siteName}}</a></h1><!--@Umbraco.Field("siteName", recursive: true)-->
+                <span class="byline">{{byline}}</span> <!-- @Umbraco.Field("byline", recursive: true) -->
+            </div>
+        </div>
+    </header>
+    <!-- /Header -->
+    
+    {{> umbtopnavigation}}
+    {{> yield}}
+
+    <!-- Footer -->
+    <footer id="footer" class="container">
+        <div class="row">
+            <div class="12u">
+                {{> umbabout}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="12u">
+                {{> umbsocial}}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Copyright -->
+            <div id="copyright">
+                &copy; @DateTime.Now.Year @Umbraco.Field("copyright", recursive: true) | Images: <a href="http://fotogrph.com">fotogrph</a> + <a href="http://iconify.it">Iconify.it</a> | Design: <a href="http://html5up.net/">HTML5 UP</a>
+            </div>
+            <!-- /Copyright -->
+        </div>
+    </footer>
+    <!-- /Footer -->
+    {{> inspector}}
+</template>

@@ -1,0 +1,11 @@
+<template name="inspector">
+  <div class="inspector">
+    <div class="inspector__content" id="devInspector">
+     {{#each content}}
+        <div data-id="{{id}}" class="level-{{level}}">{{name}} <span>[{{nodeTypeAlias}}]</span></div>
+      {{/each}}
+    </div>
+    <div class="inspector__data">Pick a node to view content</div>
+    <div id="inspect-trigger" class="inspector__trigger">Inspector</div>
+  </div>
+</template>

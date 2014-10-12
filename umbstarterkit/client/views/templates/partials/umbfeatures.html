@@ -1,0 +1,38 @@
+<!--
+@inherits UmbracoTemplatePage
+@{
+    // Model.Content is the current page that we're on
+    // AncestorsOrSelf is all of the ancestors this page has in the tree
+    // (1) means: go up to level 1 and stop looking for more ancestors when you get there
+    // First() gets the first ancestor found (the home page, on level 1)
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();
+}
+-->
+<template name="umbfeatures">
+    <!-- Features -->
+    <section class="is-features">
+        <h2 class="major"><span>Wonderful featured pages</span></h2>
+        <div>
+            <div class="row">
+            {{#each feature }}
+          <!--      @foreach (var feature in homePage.umbTextPages.Where("featuredPage"))-->
+             
+                    <div class="3u">
+                        <!-- Feature -->
+                        <section class="is-feature">
+                            {{#if image}}
+                                <a href="{{url}}" class="image image-full">
+                                    <img src="{{image}}" alt="" />
+                                </a>
+                            {{/if}}
+                            <h3><a href="{{url}}">{{name}}</a></h3>
+                            {{truncate bodyText 100}}
+                        </section>
+                        <!-- /Feature -->
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    <!-- /Features -->
+</template>

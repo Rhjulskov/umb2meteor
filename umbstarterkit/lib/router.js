@@ -84,8 +84,12 @@ Router.map(function() {
   this.route('frontpage', {
     path: '/',
     template: 'frontpage',
+    loadingTemplate: 'loading',
     data: function() { 
       return Content.findOne({ niceUrl: "/" });   
+    },
+    waitOn: function() {
+      Meteor.subscribe('media');
     }
   });
   // Level 2

@@ -18,6 +18,6 @@ Template.umbnewsoverviewwidget.helpers({
     return Content.findOne({nodeTypeAlias: "umbNewsOverview"});
   },
   featuredNewsItem: function(){
-    return Content.findOne({nodeTypeAlias: "umbNewsItem"});
+    return Content.findOne({nodeTypeAlias: "umbNewsItem", id: 1077});
   }
 });

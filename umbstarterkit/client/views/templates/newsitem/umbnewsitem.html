@@ -1,0 +1,40 @@
+<template name="umbnewsitem">
+<div id="main-wrapper">
+    <div id="main" class="container">
+        <div class="row">
+            <div class="9u skel-cell-mainContent">
+                <div class="content content-left">
+                    <!-- Content -->
+                    <article class="is-page-content">
+                        <header>
+                            <h2>{{pageTitle}}</h2>
+                        </header>
+                        <section>
+                            @if (string.IsNullOrWhiteSpace(CurrentPage.Image) == false)
+                            {
+                                <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
+                            }
+
+                            {{bodyText}}
+                        </section>                           
+                    </article>
+                    <!-- /Content -->
+                </div>
+            </div>
+            <div class="3u">
+                <div class="sidebar">
+                    <!-- Sidebar -->
+                    {{> umblatestnewswidget}}
+                    <!-- /Sidebar -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="12u">
+                {{> umbFeatures}}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Main -->
+</template>

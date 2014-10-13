@@ -8,9 +8,9 @@
    <!-- var link = CurrentPage.BannerLink.ToString();-->
     
       <!-- Banner -->
-      <div id="banner-wrapper" style="background: url('@CurrentPage.BannerBackgroundImage') center center no-repeat;">
+      <div id="banner-wrapper" style="background: url({{bannerBackgroundImage}}) center center no-repeat;">
           <section id="banner">
-              <h2>hey{{bannerHeader}}</h2>
+              <h2>{{bannerHeader}}</h2>
               <span class="byline">{{bannerSubheader}}</span>
               
           <!-- Only show the banner link if the link isn't empty -->

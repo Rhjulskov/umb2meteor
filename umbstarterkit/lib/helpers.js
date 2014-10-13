@@ -54,6 +54,17 @@ UI.registerHelper ('truncate', function (str, len) {
   return str;
 });
 
+UI.registerHelper('recursive', function(val) {
+  if(val){
+    var current = Content.findOne({ id: this.id }); 
+    while(!current[val] && current["parent"].length != 4){
+      current = Content.findOne({ id: current["parent"] }); 
+    }
+    return current[val];
+  }
+});
+
+
 
 log = function(str) {
 	console.log(str);

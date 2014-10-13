@@ -1,0 +1,22 @@
+<template name="contentView">
+
+  {{#if templateIs "umbHomePage" }}
+    {{> frontpage}}
+  {{/if}}
+
+  {{#if templateIs "umbNewsItem" }}
+    <div id="umbnewsitem">
+    {{> umbnewsitem}}
+    </div>
+  {{/if}}
+
+  {{#if templateIs "umbTextPage" }}
+    {{> umbtextpage}}
+  {{/if}}
+
+  {{#if templateIs "umbNewsOverview" }}
+    
+  {{/if}}
+
+
+</template>

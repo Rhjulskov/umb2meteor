@@ -8,6 +8,7 @@ Template.inspector.rendered = function(){
 
   var current = function(){
     return Content.findOne({ niceUrl: "/" });   
+       
   };
   $("#devInspector").html( current );
   console.log(current)

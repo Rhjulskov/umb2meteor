@@ -1,0 +1,39 @@
+<template name="umbtextpage">
+  <div id="main-wrapper">
+    <div id="main" class="container">
+        <div class="row">
+            <div class="9u skel-cell-mainContent">
+                <div class="content content-left">
+                    <!-- Content -->
+                    <article class="is-page-content">
+                        <header>
+                            <h2>{{name}}</h2>
+                        </header>
+                        <section>
+                           {{#if image}}
+                                <span class="image image-full"><img src="{{image}}" alt="" /></span>
+                            {{/if}}
+
+                            {{bodyText}}
+                        </section>                           
+                    </article>
+                    <!-- /Content -->
+                </div>
+            </div>
+            <div class="3u">
+                <div class="sidebar">
+                    <!-- Sidebar -->
+                    {{> umblatestnewswidget}}
+                    <!-- /Sidebar -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="12u">
+                {{> umbfeatures}}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Main -->
+</template>

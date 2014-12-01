@@ -112,7 +112,7 @@ Router.map(function() {
     }
   });
   // Level 4
-  this.route('level3', {
+  this.route('level4', {
     path: '/:_level2/:_level3/:_level4/',
     template: 'contentView',
     data: function() { 
@@ -122,7 +122,7 @@ Router.map(function() {
     }
   });
   // Level 5
-  this.route('level3', {
+  this.route('level5', {
     path: '/:_level2/:_level3/:_level4/:_level5/',
     template: 'contentView',
     data: function() { 
@@ -132,7 +132,7 @@ Router.map(function() {
     }
   });
   // Level 6
-  this.route('level3', {
+  this.route('level6', {
     path: '/:_level2/:_level3/:_level4/:_level5/:_level6/',
     template: 'contentView',
     data: function() { 

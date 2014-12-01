@@ -6,6 +6,4 @@
 meteor-platform
 iron:router
 insecure
-mizzao:bootstrap-3
 autopublish
-

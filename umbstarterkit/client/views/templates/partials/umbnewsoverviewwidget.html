@@ -68,9 +68,9 @@
                                 <ul class="meta">
                                     <li class="timestamp">
                                         {{#if featuredNewsItem.publishDate}}
-                                            {{featuredNewsItem.publishDate}}
+                                            {{formatTime featuredNewsItem.publishDate}}
                                         {{else}}
-                                            {{featuredNewsItem.createDate}}
+                                            {{formatTime featuredNewsItem.createDate}}
                                         {{/if}}
                                     </li>
                                     <!-- @(featuredNewsItemDateTime.ToString("f")) -->

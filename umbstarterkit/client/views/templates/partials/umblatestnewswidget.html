@@ -39,9 +39,9 @@
                         <li class="timestamp">
                             <!-- @dateTime.ToString("f")-->
                             {{#if publishDate}}
-                                {{publishDate}}
+                                {{formatTime publishDate }}
                             {{else}}
-                                {{createDate}}
+                                {{formatTime createDate }}
                             {{/if}}
                         </li>
                     </ul>

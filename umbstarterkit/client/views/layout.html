@@ -1,16 +1,15 @@
 <template name="layout">
-
     <!-- Header -->
     <header id="header">
         <div class="logo">
             <div>
-                <h1><a href="/" id="logo">{{recursive "siteName"}}</a></h1><!--@Umbraco.Field("siteName", recursive: true)-->
-                <span class="byline">{{recursive "byline"}}</span> <!-- @Umbraco.Field("byline", recursive: true) -->
+                <h1><a href="/" id="logo"></a></h1><!--{{recursive "siteName"}}-->
+                <span class="byline"></span> <!-- {{recursive "byline"}} -->
             </div>
         </div>
     </header>
     <!-- /Header -->
-    
+
     {{> umbtopnavigation}}
     {{> yield}}
 

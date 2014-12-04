@@ -4,23 +4,23 @@
     <section>
         <h2 class="major"><span>Get in touch</span></h2>
         <ul class="contact">
-            {{#if facebookLink}}
-                <li><a href="{{facebookLink}}" class="facebook">Facebook</a></li>
+            {{#if recursive "facebookLink"}}
+                <li><a href="{{recursive "facebookLink"}}" class="facebook">Facebook</a></li>
             {{/if}}
-            {{#if twitterLink}}
-                <li><a href="{{twitterLink}}" class="twitter">Twitter</a></li>
+            {{#if recursive "twitterLink"}}
+                <li><a href="{{recursive "twitterLink"}}" class="twitter">Twitter</a></li>
             {{/if}}
-            {{#if rssLink}}
-                <li><a href="{{rssLink}}" class="rss">RSS</a></li>
+            {{#if recursive "rssLink"}}
+                <li><a href="{{recursive "rssLink"}}" class="rss">RSS</a></li>
             {{/if}}
-            {{#if dribbbleLink}}
-                <li><a href="{{dribbbleLink}}" class="dribbble">Dribbble</a></li>
+            {{#if recursive "dribbbleLink"}}
+                <li><a href="{{recursive "dribbbleLink"}}" class="dribbble">Dribbble</a></li>
             {{/if}}
-            {{#if linkedinLink}}
-                <li><a href="{{linkedinLink}}" class="linkedin">Linked In</a></li>
+            {{#if recursive "linkedinLink"}}
+                <li><a href="{{recursive "linkedinLink"}}" class="linkedin">Linked In</a></li>
             {{/if}}
-            {{#if googleLink}}
-                <li><a href="{{googleLink}}" class="googleplus">Google+</a></li>
+            {{#if recursive "googleLink"}}
+                <li><a href="{{recursive "googleLink"}}" class="googleplus">Google+</a></li>
             {{/if}}
         </ul>
     </section>

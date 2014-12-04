@@ -83,7 +83,7 @@ Router.map(function() {
   // Root Level 1
   this.route('frontpage', {
     path: '/',
-    template: 'frontpage',
+    template: 'contentView',
     data: function() { 
       return Content.findOne({ niceUrl: "/" });   
     },

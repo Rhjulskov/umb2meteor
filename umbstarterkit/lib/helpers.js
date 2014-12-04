@@ -64,6 +64,13 @@ UI.registerHelper('recursive', function(val) {
   }
 });
 
+UI.registerHelper('stringOrDefault', function(i, j){
+  if(i){
+    return i
+  } else {
+    return j
+  }
+});
 
 
 log = function(str) {

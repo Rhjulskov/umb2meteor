@@ -27,6 +27,7 @@
 
 }
 -->
+
 <template name="umbnewsoverview">
     <!-- Main -->
     <div id="main-wrapper">
@@ -37,7 +38,7 @@
                         <!-- Content -->
                         <article class="is-page-content">
                             <header>
-                                <h2>@pageTitle</h2>
+                                <h2>{{stringOrDefault title name}}</h2>
                             </header>
 
                             @foreach (var item in newsItems)

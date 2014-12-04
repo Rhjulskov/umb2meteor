@@ -260,7 +260,7 @@
 			{
 				display: block;
 				position: relative;
-				background: #c1cac5 url('images/icons-contact.png');
+				background: #c1cac5 url('/images/icons-contact.png');
 				width: 48px;
 				height: 48px;
 				text-indent: -9999px;

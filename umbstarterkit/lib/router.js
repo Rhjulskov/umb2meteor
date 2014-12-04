@@ -1,7 +1,7 @@
 Router.configure({
   layoutTemplate: 'layout',
   loadingTemplate: 'loading',
-  waitOn: function() { return Meteor.subscribe('Content'); }
+  //waitOn: function() { return Meteor.subscribe('Content'); }
 });
 
 Router.map(function() {
@@ -84,7 +84,6 @@ Router.map(function() {
   this.route('frontpage', {
     path: '/',
     template: 'frontpage',
-    loadingTemplate: 'loading',
     data: function() { 
       return Content.findOne({ niceUrl: "/" });   
     },

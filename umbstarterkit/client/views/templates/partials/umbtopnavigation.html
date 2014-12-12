@@ -16,9 +16,10 @@
     <!-- Nav -->
     <nav id="nav" class="skel-panels-fixed">
         <ul>
-             <li ><a href="/">Home</a></li>
+             <li class="{{isActiveRoute regex='frontpage' className='current_page_item'}}"><a href="/">Home</a></li>
             {{#each rootChildren }}
-                <li class="{{#if isCurrentPage niceUrl }}current_page_item{{/if}}"> <a href="{{niceUrl}}">{{ name }}</a></li>
+
+                <li class="{{isActivePath regex=niceUrl className='current_page_item'}}"> <a href="{{niceUrl}}">{{ name }}</a></li>
             {{/each}}
         </ul>
     </nav>

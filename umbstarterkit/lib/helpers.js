@@ -10,10 +10,6 @@ UI.registerHelper('rootChildren', function() {
   }
 });
 
-UI.registerHelper('isCurrentPage', function(urlPath) {
-  return location.pathname == urlPath;
-});
-
 
 UI.registerHelper('children', function() {
   return Content.find({ parent: this.id });

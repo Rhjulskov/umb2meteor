@@ -5,3 +5,5 @@
 
 meteor-platform
 iron:router
+zimme:iron-router-active
+

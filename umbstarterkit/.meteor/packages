@@ -5,5 +5,5 @@
 
 meteor-platform
 iron:router
-insecure
-autopublish
+zimme:iron-router-active
+
